@@ -1,0 +1,14 @@
+.DS_Store
+node_modules/
+.humanizer-pro-cli/
+connection.json
+command.lock
+*.mp4
+*.zip
+*.log
+
+.env
+.env.*
+*.pem
+*.key
+coverage/
