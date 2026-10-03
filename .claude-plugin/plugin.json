@@ -18,9 +18,9 @@
     "humanizer",
     "cli"
   ],
-  "icon": "./assets/logo.png",
+  "icon": "./assets/icon.png",
   "documentationUrl": "https://github.com/khadinakbarlabs/humanizer-pro-cli-plugin#readme",
   "supportUrl": "https://texthumanizer.pro/mcp-docs#support",
-  "privacyPolicyUrl": "https://texthumanizer.pro/privacy",
+  "privacyPolicyUrl": "https://github.com/khadinakbarlabs/humanizer-pro-cli-plugin/blob/main/PRIVACY.md",
   "termsOfServiceUrl": "https://texthumanizer.pro/terms"
 }
