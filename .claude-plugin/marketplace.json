@@ -1,0 +1,19 @@
+{
+  "name": "humanizer-pro",
+  "owner": {
+    "name": "Khadin Akbar",
+    "email": "hello@khadinakbar.com"
+  },
+  "metadata": {
+    "description": "Humanizer PRO writing skill and account-connected CLI",
+    "version": "0.2.0"
+  },
+  "plugins": [
+    {
+      "name": "humanizer-pro",
+      "source": "./",
+      "description": "Revise supplied drafts with your Humanizer PRO account through a local CLI.",
+      "version": "0.2.0"
+    }
+  ]
+}

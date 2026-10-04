@@ -2,7 +2,7 @@
 
 The CLI is readable Node.js source bundled with the skill, with no package downloads, dependency installation, startup hooks, background jobs, telemetry, or MCP server configuration. It uses Humanizer PRO's existing OAuth 2.0 PKCE sign-in and Streamable HTTP API internally. Users interact through the command line; this package does not register a connector in the host.
 
-The same client is available as the standalone `humanizer-pro` command after local `.tgz` installation. The skill invokes its bundled script directly and needs no global npm installation. Both use the same private connection store. Local information is available with `humanizer-pro --help` and `humanizer-pro --version`; operation results are JSON. This release does not include an interactive view.
+The same client is available as the standalone `humanizer-pro` command from the [v0.2.0 GitHub release](https://github.com/khadinakbarlabs/humanizer-pro-cli-plugin/releases/tag/v0.2.0). After the user installs that exact `.tgz`, the skill may use the standalone command when `--version` reports 0.2.0. Otherwise it invokes its bundled script directly and needs no global npm installation. Both use the same private connection store. Local information is available with `humanizer-pro --help` and `humanizer-pro --version`; operation results are JSON. This release does not include an interactive view. Do not install a similarly named npm package.
 
 Resolve the installed skill directory and invoke `node` with its quoted `scripts/humanizer-pro.mjs` path. These arguments are supported:
 

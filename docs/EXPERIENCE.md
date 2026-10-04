@@ -13,7 +13,7 @@ flowchart LR
 
 ## 1. Install
 
-Choose the local Codex package or launch Claude Code with the source plugin directory. Use the standalone CLI `.tgz` if you also want the `humanizer-pro` command in your terminal. This file has not been published to npm; do not assume `npm install humanizer-pro-cli` retrieves this product.
+In Claude Code, run `/plugin marketplace add khadinakbarlabs/humanizer-pro-cli-plugin`, then `/plugin install humanizer-pro@humanizer-pro`, and start a new session. Alternatively launch with the source plugin directory. Download the standalone CLI `.tgz` from the v0.2.0 GitHub release if you also want the `humanizer-pro` command in your terminal. It has not been published to npm; do not assume `npm install humanizer-pro-cli` retrieves this product. The skill prefers the verified standalone version when installed and otherwise uses the same bundled client.
 
 ## 2. Connect
 

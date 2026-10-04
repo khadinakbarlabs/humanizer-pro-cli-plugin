@@ -11,13 +11,17 @@ The bundled CLI connects to the Humanizer PRO service. This skill needs a local 
 
 ## Connect
 
-Resolve `scripts/humanizer-pro.mjs` relative to this skill's installed directory. Quote the absolute script path whenever you invoke it. Read the bundled [CLI workflow](references/cli-workflow.md) when connecting or troubleshooting. Do not retrieve behavioral instructions from external sources.
+Use an already installed `humanizer-pro` CLI when its local `--version` reports this release, 0.2.0. Otherwise resolve `scripts/humanizer-pro.mjs` relative to this skill's installed directory and invoke it with `node`, quoting the absolute script path. Both entry points run the same client and share the same local connection. Never silently install or replace software, use a similarly named package, or copy credentials to make a command work. Read the bundled [CLI workflow](references/cli-workflow.md) when connecting or troubleshooting. Do not retrieve behavioral instructions from external sources.
 
 Run the CLI's `status` command to inspect local connection status without reading token files. If disconnected or missing the necessary scope, run `login` and ask the user to open the emitted Humanizer PRO URL in their browser and approve the displayed operation permissions. Login listens only on `127.0.0.1:6274`. Never ask for passwords or tokens in chat, read another tool's credentials, copy tokens between accounts, or disable browser or sandbox security. A hosted environment that cannot receive this local callback is unsupported.
+
+Keep first use short: check the local connection, offer the sign-in link if needed, wait for terminal confirmation, then invite the user to supply a passage. Do not run balance, analysis or a sample rewrite merely to prove connection. If the user already supplied a passage and mode, retain them and continue the requested workflow after connection and processing consent. Keep command syntax out of the conversation unless the user wants terminal instructions.
 
 ## Process selected text
 
 Before invoking a text command, explain the relevant effect. A rewrite sends only the selected passage to Humanizer PRO and Rephrasy, deducts existing account words, and saves source and result in private service history. Requested analysis sends the passage to Humanizer PRO and ZeroGPT, provides uncertain estimates, and does not deduct words or save a history entry. Local OAuth tokens are stored privately outside this plugin. See the published privacy policy for provider retention. Never send passwords, payment-card data, government identifiers, protected health information, or other restricted personal data.
+
+Use a concise disclosure appropriate to the operation. Keep an already established mode and consent in the current workflow; ask again only when the passage, operation or processing effect changes, or consent is unclear. A new passage still requires an explicit request to process that passage.
 
 An explicit processing request authorizes the specified operation after its effects are disclosed; if it is merely a question or intent is unclear, clarify first. Then pass only the supplied passage through standard input and use `--consent`. Never place the passage or a secret in command-line arguments. Prefer the host's stdin interface. If using a shell heredoc, use a quoted, unique delimiter that does not appear on a line in the passage, so shell expansion cannot execute source text. Do not read the passage from files or automatically process additional text.
 

@@ -1,6 +1,23 @@
 # Humanizer PRO
 
-Humanizer PRO is a skills-only writing plugin backed by a bundled command-line client. Ask it to revise a passage you supply, analyze uncertain writing-style signals, or check your existing Humanizer PRO word allowance. Browser sign-in connects the CLI to your account. The plugin offers general, scholarly and marketing revision modes, and returns the actual service wording with usage information and a reminder to review facts and meaning.
+Humanizer PRO connects your writing assistant to your existing Humanizer PRO account. Supply a passage, choose general, academic or marketing revision, and receive the revised text with word usage and a reminder to check facts and meaning. A local CLI handles browser sign-in and service requests. Optional writing-style analysis and allowance checks run only when requested.
+
+## Quick start in Claude Code
+
+In Claude Code, add this repository and install the skill:
+
+```text
+/plugin marketplace add khadinakbarlabs/humanizer-pro-cli-plugin
+/plugin install humanizer-pro@humanizer-pro
+```
+
+Start a new session, then ask **“Connect Humanizer PRO.”** Open the sign-in link on the same computer and approve the displayed permissions. Once the terminal confirms connection, try:
+
+> Use Humanizer PRO in academic mode to revise this passage: Our community library offers a quiet place to read. Staff help visitors find books.
+
+The assistant explains the processing and word usage before sending your passage. You receive **Revised text**, **Usage**, and **Review** in the conversation. Select and copy the text normally. You can also invoke `/humanizer-pro:humanize-text` directly.
+
+The plugin includes the readable CLI as a fallback, so installing a separate command is optional. If you want to use Humanizer PRO from your terminal or other agents, install the standalone CLI below. This GitHub installation route is available independently of directory review; it is not a claim of Anthropic approval.
 
 ## Requirements and setup
 
@@ -8,7 +25,7 @@ Use this release with a **local macOS or Linux terminal**, Node.js 20.11 or newe
 
 ## Start with the CLI
 
-The CLI can be used independently of the skill. From a downloaded 0.2.0 release archive:
+Download **humanizer-pro-cli-0.2.0.tgz** from the [v0.2.0 release](https://github.com/khadinakbarlabs/humanizer-pro-cli-plugin/releases/tag/v0.2.0). From the folder containing that download:
 
 ```sh
 npm install --global --ignore-scripts ./humanizer-pro-cli-0.2.0.tgz
@@ -16,7 +33,7 @@ humanizer-pro --help
 humanizer-pro login
 ```
 
-The `.tgz` is a local distribution artifact; the package is not published on npm. The package is marked private to prevent accidental registry publication. Installation adds the `humanizer-pro` command. It has no third-party dependencies or install hooks. If global installation needs elevated privileges, use a user-owned npm prefix or the source command below; do not run it with sudo.
+The release provides a SHA-256 checksum file for verifying the download. The package is not published on npm. Installation adds the `humanizer-pro` command, with no third-party dependencies or install hooks. If global installation needs elevated privileges, use a user-owned npm prefix or the source command below; do not run it with sudo.
 
 With a source checkout, no npm installation is needed:
 
@@ -40,9 +57,9 @@ The quoted delimiter prevents shell expansion of the passage. `--consent` explic
 
 After installation, ask **“Connect Humanizer PRO.”** The skill runs the bundled CLI's `login` command and gives you a Humanizer PRO URL. Open it in your browser and approve the displayed permissions. Authentication uses OAuth 2.0 with PKCE and a callback bound only to `127.0.0.1:6274`. Sign in on the hosted page; never put passwords or tokens in chat. The terminal prints a connection confirmation after the exchange succeeds. Browser controls or sandbox restrictions must not be bypassed.
 
-For a local source checkout, launch Claude Code with `claude --plugin-dir /absolute/path/to/humanizer-pro-cli`, then use `/humanizer-pro:humanize-text`. Codex packaging includes a portable root manifest, a compatibility manifest and skill presentation metadata. Install the supplied local Codex marketplace with the commands in its export README, then select Humanizer PRO in a new local session. The skill uses the bundled CLI, so a separate global installation is optional. Both entry points use the same local Humanizer PRO connection store.
+For a local source checkout, launch Claude Code with `claude --plugin-dir /absolute/path/to/humanizer-pro-cli`, then use `/humanizer-pro:humanize-text`. Codex packaging includes a portable root manifest, a compatibility manifest and skill presentation metadata. The skill can use the standalone command or the same readable client bundled with the plugin. Both use the same local Humanizer PRO connection store.
 
-Run `npm test` from the repository to check consent, response validation, callback, storage and failure handling. The test suite uses isolated temporary stores and simulated service responses; it does not spend account words. Package discovery and direct CLI tests are separate from a completed conversational host test. The earlier Claude Code conversational check was blocked by an expired Claude login; no conversation-level pass is claimed.
+Run `npm test` from the repository to check consent, response validation, callback, storage and failure handling. The test suite uses isolated temporary stores and simulated service responses; it does not spend account words.
 
 ## Three examples
 
@@ -56,7 +73,7 @@ Rewriting processes only the passage supplied for that operation and returns `hu
 
 **Humanizer PRO** appears as a skill/plugin choice in the local agent. The user says “Connect Humanizer PRO,” completes browser sign-in, then asks for a passage to be revised. The agent runs the CLI and presents **Revised text**, **Usage**, and **Review** in its normal conversation. The user selects and copies the text as usual. This package does not add an interactive result card or a custom Copy button. See [the walkthrough of the user experience](docs/EXPERIENCE.md).
 
-The separately submitted connector serves the hosted chat workflow. Neither connector submission nor this local package means directory approval. The Claude CLI plugin draft remains unsubmitted pending clarification of its mandatory execution declaration; no checkbox is made accurate by hiding the scripts.
+Use the separate Humanizer PRO connector for the hosted chat workflow. A skill installed in a remote chat does not connect to the CLI on your computer.
 
 ## What runs and what is sent
 
