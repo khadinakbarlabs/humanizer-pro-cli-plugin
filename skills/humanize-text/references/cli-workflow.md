@@ -2,7 +2,7 @@
 
 The CLI is readable Node.js source bundled with the skill, with no package downloads, dependency installation, startup hooks, background jobs, telemetry, or MCP server configuration. It uses Humanizer PRO's existing OAuth 2.0 PKCE sign-in and Streamable HTTP API internally. Users interact through the command line; this package does not register a connector in the host.
 
-The same client is available as the standalone `humanizer-pro` command from the [v0.2.0 GitHub release](https://github.com/khadinakbarlabs/humanizer-pro-cli-plugin/releases/tag/v0.2.0). After the user installs that exact `.tgz`, the skill may use the standalone command when `--version` reports 0.2.0. Otherwise it invokes its bundled script directly and needs no global npm installation. Both use the same private connection store. Local information is available with `humanizer-pro --help` and `humanizer-pro --version`; operation results are JSON. This release does not include an interactive view. Do not install a similarly named npm package.
+The same client is available as the standalone `humanizer-pro` command from the [v0.3.0 GitHub release](https://github.com/khadinakbarlabs/humanizer-pro-cli-plugin/releases/tag/v0.3.0). After the user installs that exact `.tgz`, the skill may use the standalone command when `--version` reports 0.3.0. Otherwise it invokes its bundled script directly and needs no global npm installation. Both use the same private connection store. Local information is available with `humanizer-pro --help` and `humanizer-pro --version`; operation results are JSON. Requested local HTML reports/comparisons are available; this release adds no embedded app card. Do not install a similarly named npm package.
 
 Resolve the installed skill directory and invoke `node` with its quoted `scripts/humanizer-pro.mjs` path. These arguments are supported:
 
@@ -32,3 +32,7 @@ Tokens are plaintext in an owner-only file (0600) inside an owner-only directory
 - **Failed or timed-out rewrite:** no automatic retry. An outcome may be unknown; review service history or request a balance check before considering another call.
 
 Support: https://texthumanizer.pro/mcp-docs#support. Contact: hello@khadinakbar.com.
+
+## Local writing commands
+
+`profile`, `brief`, `review`, `session`, `feedback`, `history`, `report` and `routine` run before any OAuth-store access and make no account request. Review and routine need only supplied JSON; reports and briefs use only approved local writing state. See [writing workspace](writing-workspace.md) for exact fields, scope and explicit write consent, and [host routines](host-routines.md) for reminder setup. Local output is JSON by default; review/report support `--format html`. Never interpret a routine specification as a scheduled task.

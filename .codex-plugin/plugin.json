@@ -1,21 +1,32 @@
 {
   "name": "humanizer-pro",
-  "version": "0.2.0",
-  "description": "Revise supplied drafts through your Humanizer PRO account and local CLI.",
-  "author": { "name": "Khadin Akbar", "email": "hello@khadinakbar.com", "url": "https://texthumanizer.pro" },
+  "version": "0.3.0",
+  "description": "Revise supplied drafts with your account, approved local preferences, review and writing reports.",
+  "author": {
+    "name": "Khadin Akbar",
+    "email": "hello@khadinakbar.com",
+    "url": "https://texthumanizer.pro"
+  },
   "skills": "./skills/",
   "interface": {
     "displayName": "Humanizer PRO",
     "shortDescription": "Revise text with your account",
     "developerName": "Khadin Akbar",
     "category": "Creativity",
-    "capabilities": ["Read", "Write"],
+    "capabilities": [
+      "Read",
+      "Write"
+    ],
     "websiteURL": "https://github.com/khadinakbarlabs/humanizer-pro-cli-plugin#readme",
     "supportURL": "https://texthumanizer.pro/mcp-docs#support",
     "privacyPolicyURL": "https://github.com/khadinakbarlabs/humanizer-pro-cli-plugin/blob/main/PRIVACY.md",
     "termsOfServiceURL": "https://texthumanizer.pro/terms",
     "logo": "./assets/icon.png",
     "composerIcon": "./assets/icon.png",
-    "defaultPrompt": ["Connect my Humanizer PRO account.", "Use Humanizer PRO to revise a passage I supply.", "Check my Humanizer PRO word allowance."]
+    "defaultPrompt": [
+      "Connect my Humanizer PRO account.",
+      "Use Humanizer PRO to revise a passage I supply.",
+      "Check my Humanizer PRO word allowance."
+    ]
   }
 }

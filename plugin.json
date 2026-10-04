@@ -1,29 +1,45 @@
 {
   "$schema": "https://agent-plugins.org/schemas/1.0.0/plugin.schema.json",
   "name": "humanizer-pro",
-  "version": "0.2.0",
-  "description": "Revise supplied drafts, analyze uncertain writing-style signals, and check existing Humanizer PRO allowance through a local CLI.",
-  "author": { "name": "Khadin Akbar", "email": "hello@khadinakbar.com", "url": "https://texthumanizer.pro" },
+  "version": "0.3.0",
+  "description": "Revise supplied drafts with your account, approved local preferences, review and writing reports.",
+  "author": {
+    "name": "Khadin Akbar",
+    "email": "hello@khadinakbar.com",
+    "url": "https://texthumanizer.pro"
+  },
   "homepage": "https://texthumanizer.pro",
   "repository": "https://github.com/khadinakbarlabs/humanizer-pro-cli-plugin",
   "license": "MIT",
-  "keywords": ["writing", "editing", "humanizer", "cli"],
+  "keywords": [
+    "writing",
+    "editing",
+    "humanizer",
+    "cli"
+  ],
   "extensions": {
     "com.openai": {
       "interface": {
         "displayName": "Humanizer PRO",
         "shortDescription": "Revise text with your account",
-        "longDescription": "Humanizer PRO helps writers and editors revise drafts they supply and check their existing word allowance. It supports general writing, academic drafts and marketing copy. Requested analysis returns uncertain writing-style signals. Results include the service wording, word usage and advice to review facts and meaning. This writing productivity skill runs a readable bundled local CLI and requires a local terminal, Node 20.11 or later, and browser sign-in on the same computer. Rewriting sends the selected passage to Humanizer PRO and its disclosed rewriting processor, uses existing account words, and saves source and output in private service history. Requested analysis sends the selected passage to the disclosed analysis processor without using words or saving history. No purchases, upgrades, automatic recharges, background execution or automatic retries. Local OAuth tokens are stored outside the plugin with private filesystem permissions, not encryption. A remote conversation alone cannot run this local CLI. Do not supply secrets or restricted personal data.",
+        "longDescription": "Humanizer PRO helps writers plan and revise passages they supply. It supports general, academic and marketing revision through an authenticated local CLI. Optional approved global/project preferences guide mode selection and review; the service currently accepts only text, mode and supported style, so custom voice adherence is not guaranteed. Local detail checks compare numbers, links, quotations, negation and protected terms without calling the service. Users can explicitly save editable preferences and text-free session receipts, record acceptance feedback, export/delete local metadata, and generate private HTML reports. Reminder/report specifications require an approved supported local host scheduler; this package does not install a scheduler or rewrite in the background. Rewrites send the selected passage to Humanizer PRO and its disclosed processor, use existing account words and save private service history. Requested analysis returns uncertain signals without word deduction or service text history. OAuth and local writing metadata use separate private plaintext stores, not encryption. No telemetry, purchases, automatic recharges, automatic retries, arbitrary file reading or remote credential transfer. Requires local macOS/Linux, Node 20.11+ and a browser on the same computer.",
         "developerName": "Khadin Akbar",
         "category": "Creativity",
-        "capabilities": ["Read", "Write"],
+        "capabilities": [
+          "Read",
+          "Write"
+        ],
         "websiteURL": "https://github.com/khadinakbarlabs/humanizer-pro-cli-plugin#readme",
         "supportURL": "https://texthumanizer.pro/mcp-docs#support",
         "privacyPolicyURL": "https://github.com/khadinakbarlabs/humanizer-pro-cli-plugin/blob/main/PRIVACY.md",
         "termsOfServiceURL": "https://texthumanizer.pro/terms",
         "logo": "./assets/icon.png",
         "composerIcon": "./assets/icon.png",
-        "defaultPrompt": ["Connect my Humanizer PRO account.", "Use Humanizer PRO to revise a passage I supply.", "Check my Humanizer PRO word allowance."]
+        "defaultPrompt": [
+          "Connect my Humanizer PRO account.",
+          "Use Humanizer PRO to revise a passage I supply.",
+          "Check my Humanizer PRO word allowance."
+        ]
       }
     }
   }

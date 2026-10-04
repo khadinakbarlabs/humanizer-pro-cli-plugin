@@ -13,7 +13,7 @@ flowchart LR
 
 ## 1. Install
 
-In Claude Code, run `/plugin marketplace add khadinakbarlabs/humanizer-pro-cli-plugin`, then `/plugin install humanizer-pro@humanizer-pro`, and start a new session. Alternatively launch with the source plugin directory. Download the standalone CLI `.tgz` from the v0.2.0 GitHub release if you also want the `humanizer-pro` command in your terminal. It has not been published to npm; do not assume `npm install humanizer-pro-cli` retrieves this product. The skill prefers the verified standalone version when installed and otherwise uses the same bundled client.
+In Claude Code, run `/plugin marketplace add khadinakbarlabs/humanizer-pro-cli-plugin`, then `/plugin install humanizer-pro@humanizer-pro`, and start a new session. Alternatively launch with the source plugin directory. Download the standalone CLI `.tgz` from the v0.3.0 GitHub release if you also want the `humanizer-pro` command in your terminal. It has not been published to npm; do not assume `npm install humanizer-pro-cli` retrieves this product. The skill prefers the verified standalone version when installed and otherwise uses the same bundled client.
 
 ## 2. Connect
 
@@ -35,7 +35,7 @@ The response has three parts:
 | --- | --- |
 | Revised text | The service's exact returned passage |
 | Usage | The service's processed word count and remaining allowance, when returned |
-| Review | The service's warning to check facts and meaning |
+| Check before using | Exact-detail differences plus the service warning; assistant observations are labeled separately |
 
 The following is a **layout example, not a live service result**:
 
@@ -55,3 +55,13 @@ The installed skill and CLI are clients of the existing Humanizer PRO account. T
 ## Where it runs
 
 This release targets a local Codex or Claude Code runtime on macOS/Linux with Node 20.11+ and a browser on that computer. A web/mobile chat cannot use your computer's saved CLI connection just by installing a skill. Use the separately connected Humanizer PRO connector for a hosted chat workflow. Package validation and CLI operation tests are not proof of directory approval or a completed conversational test in every host.
+
+## 5. Make the next session easier
+
+Ask the agent to propose a structured project profile. It shows what will be saved and asks for approval. Your next request wins over that profile. Audience and tone guide its plan/review; only the service's existing mode/style options are forwarded. The skill never mines earlier conversations or saves voice samples.
+
+Approve text-free receipts if you want a writing report. After a recorded rewrite, say whether you accepted, edited or rejected it and why. Saving feedback is optional; it does not change your profile. Ask for a local HTML report to see activity, word usage and feedback coverage, or a side-by-side comparison to inspect a revision. Reports are based only on saved records, not all account usage. An HTML comparison contains its supplied passages, so save it only where you intend.
+
+## 6. Keep a useful reminder
+
+Ask for a weekly report, review reminder or one-time deadline. The agent confirms timing, timezone, expiry and scope, then uses a documented local host scheduler if available. It reports the actual task ID and how to pause/delete it. A generated plan alone means **not scheduled**. Session timers have lifetime/runtime limits; local reports cannot run in a cloud job that lacks this machine's files. No background rewrites or automatic allowance checks are included.

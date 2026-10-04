@@ -4,9 +4,10 @@ import { constants } from 'node:fs';
 import { mkdir, lstat, chmod, open, rename, unlink } from 'node:fs/promises';
 import { homedir } from 'node:os';
 import { join } from 'node:path';
+import { WRITING_COMMANDS, runWriting } from './writing.mjs';
 
 export const ORIGIN = 'https://texthumanizer.pro';
-export const VERSION = '0.2.0';
+export const VERSION = '0.3.0';
 export const REDIRECT = 'http://127.0.0.1:6274/callback';
 const SCOPES = ['humanize', 'scan', 'balance'];
 const MODES = ['stealth', 'academic', 'seo'];
@@ -273,14 +274,14 @@ export async function callTool(token, operation, fetchImpl = fetch) {
   return validateResult(operation.name, result?.structuredContent);
 }
 
-export async function readInput(path, input = process.stdin) {
+export async function readInput(path, input = process.stdin, maxBytes = 48000) {
   if (path) throw new Error('File inputs are unsupported. Supply only the selected passage through standard input.');
   if (input.isTTY) throw new Error('Pipe only the selected passage through standard input.');
   let count = 0;
   const chunks = [];
   for await (const chunk of input) {
     count += Buffer.byteLength(chunk);
-    if (count > 48000) throw new Error('Input exceeds the text size limit.');
+    if (count > maxBytes) throw new Error('Input exceeds the text size limit.');
     chunks.push(Buffer.from(chunk));
   }
   try { return new TextDecoder('utf-8', { fatal: true }).decode(Buffer.concat(chunks)); }
@@ -295,6 +296,14 @@ Usage: humanizer-pro <command> [options]
   balance                              Check existing account allowance
   rewrite --consent [--mode stealth|academic|seo] [--style creative|journalistic|professional]
   analyze --consent                     Analyze writing-style signals on request
+  profile show|set|reset|export [--project name] [--consent]
+  brief [--project name]                Resolve approved preferences + supplied JSON brief
+  review [--format json|html]           Compare supplied JSON passages locally
+  session --consent [--project name]    Save supplied metadata receipt, no passage
+  feedback --session ID --consent [--project name]
+  report [--project name] [--days 7] [--format json|html]
+  history show|export|reset [--project name] [--consent]
+  routine [--project name]              Prepare a JSON host reminder/report specification
   help | --help | version | --version
 Text comes only from stdin, never a file or command-line argument. --consent permits
 sending it to the disclosed processing provider. Rewrites deduct existing words
@@ -303,9 +312,17 @@ or history entry. Review facts and meaning. No checkout, recharge, or auto-retri
 Sign-in requires a browser on the same computer (loopback port 6274).
 Configuration: ~/.humanizer-pro-cli, or HUMANIZER_PRO_CONFIG_DIR (private).
 Logout deletes local tokens; it does not claim to revoke other service sessions.
+Writing commands use only supplied JSON and the separate private writing store,
+~/.humanizer-pro-writing or HUMANIZER_PRO_WRITING_DIR. Local commands never call
+the service, consume account words or create timers. Only explicit --consent writes.
+Profiles and reports cannot guarantee service voice matching or factual accuracy.
 Privacy and terms: https://texthumanizer.pro/privacy and /terms.`;
 
 export async function main(args = process.argv.slice(2)) {
+  if (WRITING_COMMANDS.has(args[0])) {
+    console.log(await runWriting(args, () => readInput(undefined, process.stdin, 120000)));
+    return;
+  }
   const options = parseArgs([...args]);
   if (options.command === 'help') { console.log(HELP); return; }
   if (options.command === 'version') { console.log(VERSION); return; }

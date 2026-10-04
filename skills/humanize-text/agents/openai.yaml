@@ -1,6 +1,6 @@
 interface:
   display_name: "Humanizer PRO"
-  short_description: "Revise text with your account"
+  short_description: "Plan, revise and review text"
   icon_small: "../../assets/icon.png"
   icon_large: "../../assets/icon.png"
-  default_prompt: "Use $humanize-text to connect my account and revise a passage I supply."
+  default_prompt: "Use $humanize-text to plan and review a passage I supply, using only preferences I approve; connect my account if I request a service rewrite."
