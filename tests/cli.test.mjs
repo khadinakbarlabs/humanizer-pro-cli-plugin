@@ -3,7 +3,38 @@ import assert from 'node:assert/strict';
 import { mkdtemp, lstat, readFile, rm } from 'node:fs/promises';
 import { tmpdir } from 'node:os';
 import { join } from 'node:path';
-import { parseArgs, buildOperation, validateCallback, validateTokens, parseRpc, validateResult, Store, callTool, login, readInput } from '../skills/humanize-text/scripts/client.mjs';
+import { parseArgs, buildOperation, validateCallback, validateTokens, parseRpc, validateResult, Store, callTool, login, readInput, VERSION } from '../skills/humanize-text/scripts/client.mjs';
+
+test('CLI help and version aliases do not trigger authentication or operations', () => {
+  assert.deepEqual(parseArgs(['--help']), { command: 'help' });
+  assert.deepEqual(parseArgs(['-h']), { command: 'help' });
+  assert.deepEqual(parseArgs(['--version']), { command: 'version' });
+  assert.deepEqual(parseArgs(['-v']), { command: 'version' });
+  assert.throws(() => parseArgs(['--version', '--consent']), /Unknown/);
+});
+
+test('CLI and plugin release identities stay synchronized and require no install hooks', async () => {
+  const root = new URL('../', import.meta.url);
+  const load = async path => JSON.parse(await readFile(new URL(path, root), 'utf8'));
+  const npm = await load('package.json');
+  const portable = await load('plugin.json');
+  const claude = await load('.claude-plugin/plugin.json');
+  const codex = await load('.codex-plugin/plugin.json');
+  for (const manifest of [npm, portable, claude, codex]) assert.equal(manifest.version, VERSION);
+  assert.equal(npm.bin['humanizer-pro'], 'skills/humanize-text/scripts/humanizer-pro.mjs');
+  assert.equal(npm.private, true);
+  assert.equal(npm.dependencies, undefined);
+  for (const hook of ['preinstall', 'install', 'postinstall', 'prepare']) assert.equal(npm.scripts?.[hook], undefined);
+  assert.equal(portable.extensions['com.openai'].interface.displayName, 'Humanizer PRO');
+  assert.ok(portable.extensions['com.openai'].interface.shortDescription.length <= 30);
+  assert.equal(portable.mcpServers, undefined);
+  assert.equal(portable.skills, undefined);
+  for (const manifest of [portable, claude, codex]) {
+    assert.equal(manifest.mcpServers, undefined);
+    assert.equal(manifest.apps, undefined);
+    assert.equal(manifest.hooks, undefined);
+  }
+});
 
 test('validate each operation contract without requiring an absent scan authentication field', () => {
   const scan = { aiScore: 20, humanScore: 80, verdict: 'Mostly human-like estimate', indicator: 'CLEAR', wordCount: 20 };

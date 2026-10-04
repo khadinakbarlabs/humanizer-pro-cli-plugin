@@ -1,0 +1,30 @@
+{
+  "$schema": "https://agent-plugins.org/schemas/1.0.0/plugin.schema.json",
+  "name": "humanizer-pro",
+  "version": "0.2.0",
+  "description": "Revise supplied drafts, analyze uncertain writing-style signals, and check existing Humanizer PRO allowance through a local CLI.",
+  "author": { "name": "Khadin Akbar", "email": "hello@khadinakbar.com", "url": "https://texthumanizer.pro" },
+  "homepage": "https://texthumanizer.pro",
+  "repository": "https://github.com/khadinakbarlabs/humanizer-pro-cli-plugin",
+  "license": "MIT",
+  "keywords": ["writing", "editing", "humanizer", "cli"],
+  "extensions": {
+    "com.openai": {
+      "interface": {
+        "displayName": "Humanizer PRO",
+        "shortDescription": "Revise text with your account",
+        "longDescription": "Humanizer PRO revises passages you supply in general, academic or marketing modes, analyzes uncertain writing-style signals only when requested, and checks your existing account allowance. This skills-only package runs a readable bundled CLI in a local Codex or Claude Code terminal. Browser sign-in connects the CLI to your Humanizer PRO account on the same computer. Rewriting sends the selected passage to Humanizer PRO and Rephrasy, uses existing account words, and saves source and output in private service history. Requested analysis sends the selected passage to ZeroGPT without using words or saving history. Results include service wording, usage and advice to review facts and meaning. No purchases, upgrades, automatic recharges, background execution or automatic retries. Local OAuth tokens are stored outside the plugin with private filesystem permissions, not encryption. A remote ChatGPT conversation alone cannot run this local CLI. Use the separately connected Humanizer PRO connector for a hosted chat workflow. Do not supply secrets or restricted personal data.",
+        "developerName": "Khadin Akbar",
+        "category": "Productivity",
+        "capabilities": ["Read", "Write"],
+        "websiteURL": "https://github.com/khadinakbarlabs/humanizer-pro-cli-plugin#readme",
+        "supportURL": "https://texthumanizer.pro/mcp-docs#support",
+        "privacyPolicyURL": "https://github.com/khadinakbarlabs/humanizer-pro-cli-plugin/blob/main/PRIVACY.md",
+        "termsOfServiceURL": "https://texthumanizer.pro/terms",
+        "logo": "./assets/icon.png",
+        "composerIcon": "./assets/icon.png",
+        "defaultPrompt": ["Connect my Humanizer PRO account.", "Use Humanizer PRO to revise a passage I supply.", "Check my Humanizer PRO word allowance."]
+      }
+    }
+  }
+}

@@ -1,0 +1,63 @@
+<!doctype html>
+<html lang="en">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Humanizer PRO — CLI and skill experience</title>
+<style>
+*{box-sizing:border-box}body{margin:0;background:#f5f6fa;color:#172338;font:16px/1.55 -apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif}main{max-width:1120px;margin:auto;padding:48px 24px}header{display:flex;align-items:center;gap:16px}header img{width:54px;height:54px;border-radius:14px}h1{font-size:28px;margin:0;letter-spacing:-1px}h2{font-size:34px;letter-spacing:-1.3px;line-height:1.18;margin:40px 0 12px}p{max-width:760px;margin:10px 0}.muted{color:#5d687a}.badge{display:inline-block;margin-top:24px;font-size:13px;background:#e9e5ff;color:#504098;padding:6px 12px;border-radius:30px}.tabs{display:flex;gap:10px;margin:28px 0 18px}button{border:1px solid #cbd2df;border-radius:10px;padding:11px 16px;background:white;color:#172338;cursor:pointer;font:inherit}button[aria-selected=true]{background:#172338;color:white;border-color:#172338}button:focus-visible{outline:3px solid #7563df;outline-offset:3px}.grid{display:grid;grid-template-columns:280px 1fr;gap:22px}.steps{background:white;border:1px solid #e0e4ec;border-radius:18px;padding:24px}.step{display:flex;gap:12px;padding:14px 0}.num{flex:0 0 28px;height:28px;text-align:center;border-radius:50%;background:#e9e5ff;color:#504098;font-weight:650}.step strong{display:block}.step small{display:block;color:#5d687a}.panel{border:1px solid #dbe1ed;background:white;border-radius:18px;overflow:hidden}.panel-head{padding:15px 22px;border-bottom:1px solid #e0e4ec;background:#fafbfe;font-size:14px;color:#5d687a}.content{padding:25px}.bubble{background:#f0eefb;border-radius:14px;padding:16px;margin-bottom:23px}.label{color:#504098;font-size:12px;text-transform:uppercase;letter-spacing:1px;font-weight:650}.result{margin:10px 0 20px}.stats{display:flex;flex-wrap:wrap;gap:10px}.stat{border:1px solid #e0e4ec;border-radius:8px;padding:7px 11px;font-size:14px}.notice{background:#fff7e6;padding:14px;border-radius:9px;margin-top:18px;font-size:14px}.terminal{background:#111b2c;color:#c8d7f0;padding:24px;white-space:pre-wrap;overflow-wrap:anywhere;font:14px/1.65 ui-monospace,SFMono-Regular,Menlo,monospace;margin:0;min-height:390px}.footer{font-size:14px;color:#5d687a;margin-top:24px}.note{margin-top:18px;font-size:14px}code{background:#e9edf4;padding:2px 5px;border-radius:4px}a{color:#504098} [hidden]{display:none!important}@media(max-width:740px){main{padding:25px 16px}h2{font-size:29px}.grid{grid-template-columns:1fr}.steps{padding:15px}.step{padding:8px 0}.content{padding:18px}.tabs button{padding:10px 12px}}
+</style>
+<main>
+<header><img src="../assets/icon.png" alt="Humanizer PRO icon"><div><h1>Humanizer PRO</h1><div class="muted">Your account. Your chosen passage. Your local agent.</div></div></header>
+<div class="badge">Layout preview · not a live session or recording</div>
+<h2>A CLI underneath.<br>A familiar conversation on top.</h2>
+<p class="muted">Sign in on Humanizer PRO once, then ask Codex or Claude Code to revise a passage. The skill runs the CLI and presents the exact service result in the conversation.</p>
+<div class="tabs" role="tablist" aria-label="View the experience"><button id="agent-tab" role="tab" aria-selected="true" aria-controls="agent-panel">Agent conversation</button><button id="cli-tab" role="tab" aria-selected="false" aria-controls="cli-panel">Standalone CLI</button></div>
+<div class="grid">
+<aside class="steps" aria-label="How it works">
+<div class="step"><span class="num">1</span><div><strong>Install</strong><small>A local skill package, or the CLI archive.</small></div></div>
+<div class="step"><span class="num">2</span><div><strong>Connect</strong><small>Browser sign-in and permission approval. No password in chat.</small></div></div>
+<div class="step"><span class="num">3</span><div><strong>Supply a passage</strong><small>The agent explains processing and word usage before the call.</small></div></div>
+<div class="step"><span class="num">4</span><div><strong>Review and use</strong><small>Copy the returned text normally, after checking facts and meaning.</small></div></div>
+</aside>
+<section class="panel" id="agent-panel" role="tabpanel" aria-labelledby="agent-tab">
+<div class="panel-head">Illustrative chat layout · service sample recorded October 3, 2026</div>
+<div class="content">
+<div class="bubble">Use Humanizer PRO in academic mode to revise this passage: Our community library offers a quiet place to read and learn. Staff help visitors find books, answer practical questions, and organize weekly workshops for people who want to develop new skills.</div>
+<div class="label">Revised text · actual recorded service output</div>
+<p class="result">The local library that we have in our community is a peaceful place where both the students and the community members can read and learn. The staff members are the ones who provide assistance and help the visitors find the books they are looking for, they also answer practical questions, and they organize weekly workshops for the community so that the participants can learn new skills.</p>
+<div class="label">Usage · recorded account values</div>
+<div class="stats"><span class="stat">31 words used</span><span class="stat">99,938 words left at test time</span><span class="stat">Academic mode</span></div>
+<div class="notice"><strong>Review</strong><br>Review the rewrite for factual accuracy and meaning, including names, quantities, qualifiers, and claims, before using it. These lexical flags are not a complete semantic check; other claims may also have changed.</div>
+<p class="note">For example, this sample adds “students,” which was not specified in the source. Review advice matters; the plugin does not silently correct service wording.</p>
+</div></section>
+<section class="panel" id="cli-panel" role="tabpanel" aria-labelledby="cli-tab" hidden>
+<div class="panel-head">Terminal commands · shown as an example, not executed by this page</div>
+<pre class="terminal">$ npm install --global --ignore-scripts ./humanizer-pro-cli-0.2.0.tgz
+
+$ humanizer-pro login
+Open the emitted Humanizer PRO URL in your browser.
+Approve the operation permissions there.
+Wait for the terminal's connection confirmation.
+
+$ humanizer-pro balance
+→ JSON containing the actual plan and available words.
+
+$ humanizer-pro rewrite --consent --mode academic
+Pass only your selected text through standard input.
+→ JSON containing humanizedText, wordCount,
+  wordsRemaining and reviewNotice.
+
+$ humanizer-pro logout
+Remove this computer's saved connection.</pre>
+</section>
+</div>
+<p class="footer">Local macOS/Linux · Node 20.11+ · Existing Humanizer PRO account and rewrite allowance. No custom result card is added by this skill. For hosted web chat, use the separately connected Humanizer PRO connector. Directory approval remains separate.</p>
+<p class="footer"><a href="EXPERIENCE.md">Read the full workflow</a> · <a href="../PRIVACY.md">Processing and privacy</a></p>
+</main>
+<script>
+const tabs=[document.getElementById('agent-tab'),document.getElementById('cli-tab')];
+function selectTab(index){tabs.forEach((tab,i)=>{tab.setAttribute('aria-selected',String(i===index));tab.tabIndex=i===index?0:-1;document.getElementById(tab.getAttribute('aria-controls')).hidden=i!==index})}
+tabs.forEach((tab,index)=>{tab.addEventListener('click',()=>selectTab(index));tab.addEventListener('keydown',event=>{if(['ArrowLeft','ArrowRight','Home','End'].includes(event.key)){event.preventDefault();const next=event.key==='Home'?0:event.key==='End'?1:1-index;selectTab(next);tabs[next].focus()}})});
+selectTab(0);
+</script>
+</html>

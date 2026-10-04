@@ -1,0 +1,13 @@
+{
+  "name": "humanizer-pro-cli",
+  "version": "0.2.0",
+  "private": true,
+  "description": "Humanizer PRO CLI for selected-text revision, requested analysis and account allowance.",
+  "type": "module",
+  "bin": { "humanizer-pro": "skills/humanize-text/scripts/humanizer-pro.mjs" },
+  "engines": { "node": ">=20.11.0" },
+  "files": ["skills/", "docs/", "assets/icon.png", "plugin.json", ".claude-plugin/plugin.json", ".codex-plugin/plugin.json", "README.md", "PRIVACY.md", "SECURITY.md", "LICENSE"],
+  "scripts": { "test": "node --test tests/cli.test.mjs" },
+  "repository": { "type": "git", "url": "https://github.com/khadinakbarlabs/humanizer-pro-cli-plugin" },
+  "license": "MIT"
+}

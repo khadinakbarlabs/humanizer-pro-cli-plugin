@@ -1,12 +1,12 @@
 # Humanizer PRO plugin privacy
 
-Updated October 3, 2026. Operator and contact: Khadin Akbar, hello@khadinakbar.com.
+Updated October 4, 2026. Operator and contact: Khadin Akbar, hello@khadinakbar.com.
 
 This notice supplements the [Humanizer PRO service privacy policy](https://texthumanizer.pro/privacy) for the local CLI plugin. Only use text you are authorized to process. Do not submit sensitive personal data or secrets.
 
 ## Selected text and service processing
 
-The plugin processes only the passage explicitly supplied for the current request. It does not query Claude conversation history, memory, summaries, user files or uploaded documents. The CLI accepts passages through standard input, holds them in process memory, and does not save local text history. Claude itself may retain the conversation and displayed tool output according to your Claude account settings and Anthropic's policies.
+The plugin processes only the passage explicitly supplied for the current request. It does not query agent conversation history, memory, summaries, user files or uploaded documents. The CLI accepts passages through standard input, holds them in process memory, and does not save local text history. Your agent host may retain the conversation and displayed tool output according to your account settings and its policies, including Anthropic's policies for Claude and OpenAI's policies for Codex.
 
 CLI requests go only to https://texthumanizer.pro. Rewrites forward the selected passage to Rephrasy, deduct existing account words, and save source and output in private Humanizer PRO history. Requested analysis forwards the selected passage to ZeroGPT; Humanizer PRO does not create a text history entry or deduct words for that operation. Checking allowance retrieves account plan and available words. Account authentication, usage records, infrastructure logs, support information and service history follow the service privacy policy. Hosted account storage and authentication use Supabase.
 

@@ -5,6 +5,7 @@ connection.json
 command.lock
 *.mp4
 *.zip
+*.tgz
 *.log
 
 .env

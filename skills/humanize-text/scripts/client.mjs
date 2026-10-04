@@ -6,6 +6,7 @@ import { homedir } from 'node:os';
 import { join } from 'node:path';
 
 export const ORIGIN = 'https://texthumanizer.pro';
+export const VERSION = '0.2.0';
 export const REDIRECT = 'http://127.0.0.1:6274/callback';
 const SCOPES = ['humanize', 'scan', 'balance'];
 const MODES = ['stealth', 'academic', 'seo'];
@@ -13,7 +14,8 @@ const STYLES = ['creative', 'journalistic', 'professional'];
 const MAX_RESPONSE = 2_000_000;
 
 export function parseArgs(args) {
-  const command = args.shift() || 'help';
+  const first = args.shift() || 'help';
+  const command = { '--help': 'help', '-h': 'help', '--version': 'version', '-v': 'version' }[first] || first;
   if (!['help', 'version', 'login', 'logout', 'status', 'balance', 'rewrite', 'analyze'].includes(command)) throw new Error('Unknown command. Run help.');
   const options = { command };
   const allowed = { login: ['scope'], rewrite: ['mode', 'style', 'consent'], analyze: ['consent'] }[command] || [];
@@ -260,7 +262,7 @@ export function validateResult(name, value) {
 
 export async function callTool(token, operation, fetchImpl = fetch) {
   const headers = { authorization: `Bearer ${token}`, 'content-type': 'application/json', accept: 'application/json, text/event-stream' };
-  const initial = await request('/mcp', { method: 'POST', headers, body: JSON.stringify({ jsonrpc: '2.0', id: 1, method: 'initialize', params: { protocolVersion: '2025-06-18', capabilities: {}, clientInfo: { name: 'humanizer-pro-cli', version: '0.1.0' } } }) }, fetchImpl);
+  const initial = await request('/mcp', { method: 'POST', headers, body: JSON.stringify({ jsonrpc: '2.0', id: 1, method: 'initialize', params: { protocolVersion: '2025-06-18', capabilities: {}, clientInfo: { name: 'humanizer-pro-cli', version: VERSION } } }) }, fetchImpl);
   const handshake = parseRpc(initial.body, 1, initial.type);
   if (!['2025-03-26', '2025-06-18', '2025-11-25'].includes(handshake.protocolVersion)) throw new Error('Unsupported service protocol. Update the CLI.');
   headers['mcp-protocol-version'] = handshake.protocolVersion;
@@ -285,14 +287,15 @@ export async function readInput(path, input = process.stdin) {
   catch { throw new Error('Input must contain valid UTF-8 text.'); }
 }
 
-export const HELP = `Humanizer PRO CLI 0.1.0 (Node.js 20.11+)
+export const HELP = `Humanizer PRO CLI ${VERSION} (Node.js 20.11+)
+Usage: humanizer-pro <command> [options]
   login [--scope humanize,scan,balance]  Connect in your browser; no passwords in CLI
   status                               Show local connection status without secrets
   logout                               Remove this machine's saved connection
   balance                              Check existing account allowance
   rewrite --consent [--mode stealth|academic|seo] [--style creative|journalistic|professional]
   analyze --consent                     Analyze writing-style signals on request
-  help | version
+  help | --help | version | --version
 Text comes only from stdin, never a file or command-line argument. --consent permits
 sending it to the disclosed processing provider. Rewrites deduct existing words
 and save private source/output history; analysis is uncertain, with no deduction
@@ -305,7 +308,7 @@ Privacy and terms: https://texthumanizer.pro/privacy and /terms.`;
 export async function main(args = process.argv.slice(2)) {
   const options = parseArgs([...args]);
   if (options.command === 'help') { console.log(HELP); return; }
-  if (options.command === 'version') { console.log('0.1.0'); return; }
+  if (options.command === 'version') { console.log(VERSION); return; }
   const store = new Store();
   const unlock = await store.lock();
   const abort = new AbortController();
