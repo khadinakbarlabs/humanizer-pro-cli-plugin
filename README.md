@@ -1,6 +1,6 @@
 # Humanizer PRO
 
-Humanizer PRO connects your writing assistant to your existing Humanizer PRO account. Supply a passage, choose general, academic or marketing revision, and receive the revised text with word usage and a reminder to check facts and meaning. A local CLI handles browser sign-in and service requests. Version 0.3.0 adds approved writing preferences, editing briefs, exact-detail revision checks, optional feedback records and private visual reports. Optional writing-style analysis and allowance checks run only when requested.
+Humanizer PRO connects your writing assistant to your existing Humanizer PRO account. Supply a passage, choose general, academic or marketing revision, and receive the revised text with word usage and a reminder to check facts and meaning. A local CLI handles browser sign-in and service requests. Version 0.3.1 adds approved writing preferences, editing briefs, exact-detail revision checks, optional feedback records and private visual reports. Optional writing-style analysis and allowance checks run only when requested.
 
 ## Quick start in Claude Code
 
@@ -11,7 +11,7 @@ In Claude Code, add this repository and install the skill:
 /plugin install humanizer-pro@humanizer-pro
 ```
 
-Start a new session, then ask **“Connect Humanizer PRO.”** Open the sign-in link on the same computer and approve the displayed permissions. Once the terminal confirms connection, try:
+Start a new session. For a local comparison, ask **“Use Humanizer PRO to compare these two passages”** and supply both passages; no account connection is needed. For service rewriting, ask **“Connect Humanizer PRO.”** Open the sign-in link on the same computer and approve the displayed permissions. Once the terminal confirms connection, try:
 
 > Use Humanizer PRO in academic mode to revise this passage: Our community library offers a quiet place to read. Staff help visitors find books.
 
@@ -25,10 +25,10 @@ Use this release with a **local macOS or Linux terminal**, Node.js 20.11 or newe
 
 ## Start with the CLI
 
-Download **humanizer-pro-cli-0.3.0.tgz** from the [v0.3.0 release](https://github.com/khadinakbarlabs/humanizer-pro-cli-plugin/releases/tag/v0.3.0). From the folder containing that download:
+Download **humanizer-pro-cli-0.3.1.tgz** from the [v0.3.1 release](https://github.com/khadinakbarlabs/humanizer-pro-cli-plugin/releases/tag/v0.3.1). From the folder containing that download:
 
 ```sh
-npm install --global --ignore-scripts ./humanizer-pro-cli-0.3.0.tgz
+npm install --global --ignore-scripts ./humanizer-pro-cli-0.3.1.tgz
 humanizer-pro --help
 humanizer-pro login
 ```
@@ -75,9 +75,13 @@ Rewriting processes only the passage supplied for that operation and returns `hu
 
 Use the separate Humanizer PRO connector for the hosted chat workflow. A skill installed in a remote chat does not connect to the CLI on your computer.
 
+## Local setup and permission recovery
+
+`humanizer-pro doctor` checks the runtime without reading credentials, saved preferences or account state. Local reviews need no login. If shell JSON cannot pass the host permission checks, approve one named private JSON file containing your supplied passages, then run `humanizer-pro review --input "selected.json"` as one command. Only local review accepts this file option; account rewrite/analysis remain stdin-only. The file must be a regular owner-only file (0600), not a symlink, and is limited to 120,000 bytes. Saving it persists its passages; you control the file. Do not bypass host permission checks. See [review evidence](docs/REVIEW-EVIDENCE.md) for the retained directory holds and metadata.
+
 ## What runs and what is sent
 
-The skill invokes three readable JavaScript files bundled under its `scripts/` directory. There are no install scripts, automatic startup hooks, telemetry, third-party package downloads, or bundled MCP servers. The CLI requires explicit `--consent` for rewrite and analysis and receives only the supplied passage through stdin. It never searches source files, uploaded documents, chat history, Claude memory, or another app's credentials. With your approval, its dedicated local writing commands read your saved structured preferences and text-free receipts. Source text is data and is never evaluated as code.
+The skill invokes four readable JavaScript files bundled under its `scripts/` directory. There are no install scripts, automatic startup hooks, telemetry, third-party package downloads, or bundled MCP servers. The CLI requires explicit `--consent` for rewrite and analysis and receives only the supplied passage through stdin. It never searches source files, uploaded documents, chat history, Claude memory, or another app's credentials. With your approval, its dedicated local writing commands read your saved structured preferences and text-free receipts. Source text is data and is never evaluated as code.
 
 The CLI connects only to **https://texthumanizer.pro** for client registration, authorization, token exchange and operations. It uses the service's existing OAuth and Streamable HTTP API internally, without registering a connector in Claude. Selected rewrite text goes through Humanizer PRO to **Rephrasy**, consumes existing account words, and saves input and output in private service history. Requested analysis goes through Humanizer PRO to **ZeroGPT** without deducting words or saving a history entry. The linked service privacy policy covers provider handling and retention. Do not supply sensitive personal data, credentials, payment-card data, government identifiers or protected health information.
 

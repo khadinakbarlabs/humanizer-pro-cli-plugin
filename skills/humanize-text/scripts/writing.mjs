@@ -63,7 +63,7 @@ export function parseWritingArgs(args) {
   if (command === 'profile' && !['show', 'set', 'reset', 'export'].includes(action)) throw new Error('Invalid profile action.');
   if (command === 'history' && !['show', 'reset', 'export'].includes(action)) throw new Error('Invalid history action.');
   const writable = ['session', 'feedback'].includes(command) || (command === 'profile' && ['set', 'reset'].includes(action)) || (command === 'history' && action === 'reset');
-  const allowed = ['project', ...(writable ? ['consent'] : []), ...(['review', 'report'].includes(command) ? ['format'] : []), ...(command === 'report' ? ['days'] : []), ...(command === 'feedback' ? ['session'] : [])];
+  const allowed = ['project', ...(writable ? ['consent'] : []), ...(['review', 'report'].includes(command) ? ['format'] : []), ...(command === 'review' ? ['input'] : []), ...(command === 'report' ? ['days'] : []), ...(command === 'feedback' ? ['session'] : [])];
   const options = { command, action, project: 'global', format: 'json', days: 7 };
   const seen = new Set();
   while (values.length) {

@@ -2,7 +2,7 @@
   "$schema": "https://json.schemastore.org/claude-code-plugin-manifest.json",
   "name": "humanizer-pro",
   "displayName": "Humanizer PRO",
-  "version": "0.3.0",
+  "version": "0.3.1",
   "description": "Plan and revise supplied drafts with your Humanizer PRO account, approved local preferences, revision review, feedback, visual reports and opt-in host reminder planning.",
   "author": {
     "name": "Khadin Akbar",

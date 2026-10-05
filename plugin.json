@@ -1,7 +1,7 @@
 {
   "$schema": "https://agent-plugins.org/schemas/1.0.0/plugin.schema.json",
   "name": "humanizer-pro",
-  "version": "0.3.0",
+  "version": "0.3.1",
   "description": "Revise supplied drafts with your account, approved local preferences, review and writing reports.",
   "author": {
     "name": "Khadin Akbar",
@@ -36,9 +36,9 @@
         "logo": "./assets/icon.png",
         "composerIcon": "./assets/icon.png",
         "defaultPrompt": [
+          "Use Humanizer PRO to compare an original and revision I supply.",
           "Connect my Humanizer PRO account.",
-          "Use Humanizer PRO to revise a passage I supply.",
-          "Check my Humanizer PRO word allowance."
+          "Show my approved local writing report."
         ]
       }
     }

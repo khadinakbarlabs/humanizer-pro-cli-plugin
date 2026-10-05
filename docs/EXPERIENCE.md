@@ -13,7 +13,7 @@ flowchart LR
 
 ## 1. Install
 
-In Claude Code, run `/plugin marketplace add khadinakbarlabs/humanizer-pro-cli-plugin`, then `/plugin install humanizer-pro@humanizer-pro`, and start a new session. Alternatively launch with the source plugin directory. Download the standalone CLI `.tgz` from the v0.3.0 GitHub release if you also want the `humanizer-pro` command in your terminal. It has not been published to npm; do not assume `npm install humanizer-pro-cli` retrieves this product. The skill prefers the verified standalone version when installed and otherwise uses the same bundled client.
+In Claude Code, run `/plugin marketplace add khadinakbarlabs/humanizer-pro-cli-plugin`, then `/plugin install humanizer-pro@humanizer-pro`, and start a new session. Alternatively launch with the source plugin directory. Download the standalone CLI `.tgz` from the v0.3.1 GitHub release if you also want the `humanizer-pro` command in your terminal. It has not been published to npm; do not assume `npm install humanizer-pro-cli` retrieves this product. The skill prefers the verified standalone version when installed and otherwise uses the same bundled client.
 
 ## 2. Connect
 
@@ -65,3 +65,7 @@ Approve text-free receipts if you want a writing report. After a recorded rewrit
 ## 6. Keep a useful reminder
 
 Ask for a weekly report, review reminder or one-time deadline. The agent confirms timing, timezone, expiry and scope, then uses a documented local host scheduler if available. It reports the actual task ID and how to pause/delete it. A generated plan alone means **not scheduled**. Session timers have lifetime/runtime limits; local reports cannot run in a cloud job that lacks this machine's files. No background rewrites or automatic allowance checks are included.
+
+## Local-first route in 0.3.1
+
+A comparison or approved local report needs no account sign-in. The skill chooses that route before status/balance. Runtime diagnostics (`doctor`) never read credentials or writing state. For a comparison, use native stdin; if shell JSON is denied, obtain approval to save one named private JSON input and invoke `review --input` as a single command. Do not bypass permissions. Account operations remain stdin-only with processing disclosure and consent. Native result presentation and private HTML remain available; the standalone CLI is optional because the full skill includes the same readable client.

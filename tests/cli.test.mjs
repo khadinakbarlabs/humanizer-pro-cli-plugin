@@ -24,6 +24,8 @@ test('CLI and plugin release identities stay synchronized and require no install
   assert.equal(npm.bin['humanizer-pro'], 'skills/humanize-text/scripts/humanizer-pro.mjs');
   assert.equal(npm.private, true);
   assert.equal(npm.dependencies, undefined);
+  assert.ok(!npm.files.includes('docs/'), 'Standalone package must not sweep unrelated development documents');
+  assert.ok(!npm.files.some(path => /assets|plugin\.json/.test(path)), 'Standalone CLI does not need provider manifests or image assets');
   for (const hook of ['preinstall', 'install', 'postinstall', 'prepare']) assert.equal(npm.scripts?.[hook], undefined);
   assert.equal(portable.extensions['com.openai'].interface.displayName, 'Humanizer PRO');
   assert.ok(portable.extensions['com.openai'].interface.shortDescription.length <= 30);

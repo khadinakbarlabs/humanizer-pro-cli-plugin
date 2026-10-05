@@ -4,10 +4,11 @@ import { constants } from 'node:fs';
 import { mkdir, lstat, chmod, open, rename, unlink } from 'node:fs/promises';
 import { homedir } from 'node:os';
 import { join } from 'node:path';
-import { WRITING_COMMANDS, runWriting } from './writing.mjs';
+import { WRITING_COMMANDS, runWriting, parseWritingArgs } from './writing.mjs';
+import { readReviewFile } from './local-input.mjs';
 
 export const ORIGIN = 'https://texthumanizer.pro';
-export const VERSION = '0.3.0';
+export const VERSION = '0.3.1';
 export const REDIRECT = 'http://127.0.0.1:6274/callback';
 const SCOPES = ['humanize', 'scan', 'balance'];
 const MODES = ['stealth', 'academic', 'seo'];
@@ -17,7 +18,7 @@ const MAX_RESPONSE = 2_000_000;
 export function parseArgs(args) {
   const first = args.shift() || 'help';
   const command = { '--help': 'help', '-h': 'help', '--version': 'version', '-v': 'version' }[first] || first;
-  if (!['help', 'version', 'login', 'logout', 'status', 'balance', 'rewrite', 'analyze'].includes(command)) throw new Error('Unknown command. Run help.');
+  if (!['help', 'version', 'doctor', 'login', 'logout', 'status', 'balance', 'rewrite', 'analyze'].includes(command)) throw new Error('Unknown command. Run help.');
   const options = { command };
   const allowed = { login: ['scope'], rewrite: ['mode', 'style', 'consent'], analyze: ['consent'] }[command] || [];
   while (args.length) {
@@ -290,6 +291,7 @@ export async function readInput(path, input = process.stdin, maxBytes = 48000) {
 
 export const HELP = `Humanizer PRO CLI ${VERSION} (Node.js 20.11+)
 Usage: humanizer-pro <command> [options]
+  doctor                               Check local runtime; no token or account access
   login [--scope humanize,scan,balance]  Connect in your browser; no passwords in CLI
   status                               Show local connection status without secrets
   logout                               Remove this machine's saved connection
@@ -298,14 +300,15 @@ Usage: humanizer-pro <command> [options]
   analyze --consent                     Analyze writing-style signals on request
   profile show|set|reset|export [--project name] [--consent]
   brief [--project name]                Resolve approved preferences + supplied JSON brief
-  review [--format json|html]           Compare supplied JSON passages locally
+  review [--format json|html] [--input selected.json]
+                                       Compare supplied JSON passages locally
   session --consent [--project name]    Save supplied metadata receipt, no passage
   feedback --session ID --consent [--project name]
   report [--project name] [--days 7] [--format json|html]
   history show|export|reset [--project name] [--consent]
   routine [--project name]              Prepare a JSON host reminder/report specification
   help | --help | version | --version
-Text comes only from stdin, never a file or command-line argument. --consent permits
+Account text comes only from stdin, never a file or command-line argument. --consent permits
 sending it to the disclosed processing provider. Rewrites deduct existing words
 and save private source/output history; analysis is uncertain, with no deduction
 or history entry. Review facts and meaning. No checkout, recharge, or auto-retries.
@@ -316,16 +319,26 @@ Writing commands use only supplied JSON and the separate private writing store,
 ~/.humanizer-pro-writing or HUMANIZER_PRO_WRITING_DIR. Local commands never call
 the service, consume account words or create timers. Only explicit --consent writes.
 Profiles and reports cannot guarantee service voice matching or factual accuracy.
+Only local review accepts --input: a user-selected private regular JSON file (0600),
+max 120,000 bytes. No file search or service call. Saving that file persists passages;
+obtain permission first. Otherwise supply JSON through stdin. Never bypass host checks.
 Privacy and terms: https://texthumanizer.pro/privacy and /terms.`;
 
 export async function main(args = process.argv.slice(2)) {
   if (WRITING_COMMANDS.has(args[0])) {
-    console.log(await runWriting(args, () => readInput(undefined, process.stdin, 120000)));
+    const options = parseWritingArgs(args);
+    console.log(await runWriting(args, () => options.input ? readReviewFile(options.input) : readInput(undefined, process.stdin, 120000)));
     return;
   }
   const options = parseArgs([...args]);
   if (options.command === 'help') { console.log(HELP); return; }
   if (options.command === 'version') { console.log(VERSION); return; }
+  if (options.command === 'doctor') {
+    const [major, minor] = process.versions.node.split('.').map(Number);
+    const runtimeReady = major > 20 || (major === 20 && minor >= 11);
+    console.log(JSON.stringify({ version: VERSION, nodeVersion: process.versions.node, runtimeReady, serviceCalled: false, connectionChecked: false, localOperationsRequireLogin: false, accountOperationsRequireLogin: true, nextAction: runtimeReady ? 'Choose a local review/report, or request connection for an account operation.' : 'Use Node.js 20.11 or newer.' }));
+    return;
+  }
   const store = new Store();
   const unlock = await store.lock();
   const abort = new AbortController();

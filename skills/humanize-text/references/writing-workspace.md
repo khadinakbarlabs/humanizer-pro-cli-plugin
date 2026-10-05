@@ -1,4 +1,4 @@
-# Local writing workspace — 0.3.0
+# Local writing workspace — 0.3.1
 
 These commands are local, make no account calls and consume no Humanizer words. Supply JSON through stdin; never interpolate it into a shell command. Use the quoted bundled CLI or verified exact standalone version. Output is JSON unless HTML is requested.
 
@@ -20,13 +20,13 @@ Example approved preferences:
 
 ## Review
 
-`review [--format json|html]` takes:
+`review [--format json|html] [--input selected.json]` takes:
 
 ```json
 {"original":"Acme will not charge $50 on 2026-10-05.","revised":"Acme charges $60 on 2026-10-06.","protectedTerms":["will not charge"]}
 ```
 
-Each passage is at most 12,000 characters. Both are returned exactly, with limited number/date/URL/quotation/negation/protected-term differences. This is not semantic or factual proof. HTML is an escaped, self-contained browser page through stdout; no passage is persisted. Saving a comparison puts its passages in the user-chosen file: obtain a request to save/open it.
+Each passage is at most 12,000 characters. Stdin remains supported. Only local review also accepts one explicitly user-selected or approved input JSON file, max 120,000 bytes, regular and owner-only (0600); symlinks and shared files are rejected. Saving this file persists passages: obtain approval naming the file first. Invoke the CLI as one command without shell glue; do not bypass host permission checks or search for input files. Account commands and local mutations reject `--input`. Both are returned exactly, with limited number/date/URL/quotation/negation/protected-term differences. This is not semantic or factual proof. HTML is an escaped, self-contained browser page through stdout; no passage is persisted. Saving a comparison puts its passages in the user-chosen file: obtain a request to save/open it.
 
 ## Receipts and feedback
 
