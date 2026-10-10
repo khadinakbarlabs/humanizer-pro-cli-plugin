@@ -6,7 +6,7 @@ This is evidence for a human reviewer, not a statement of approval or a request 
 
 The four reported paths in 0.3.0 referenced the same real branding image in the source's npm file list and native manifests. The standalone 0.3.1 CLI package no longer contains images or provider manifests because they are not CLI runtime dependencies. The native Claude/OpenAI source manifests still retain required branding. The image is never an executable, command, font or runtime script.
 
-`assets/icon.png` SHA-256: 872e005eb7c9dd1afd1e06df1b5e83977f8bed5e99f29fa793bbb1193481808d.
+Listing icon SHA-256: 872e005eb7c9dd1afd1e06df1b5e83977f8bed5e99f29fa793bbb1193481808d.
 
 Readable CLI runtime files are `humanizer-pro.mjs`, `client.mjs`, `writing.mjs` and `local-input.mjs`. No install hooks, commands, hooks, MCP server declaration, daemon or image execution path is introduced. The source repository remains one canonical skill corpus. Existing repository scan warnings may remain until the reviewer confirms the real image; reducing npm contents alone does not prove the portal hold cleared.
 
