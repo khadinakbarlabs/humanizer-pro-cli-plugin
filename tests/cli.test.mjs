@@ -17,21 +17,16 @@ test('CLI and plugin release identities stay synchronized and require no install
   const root = new URL('../', import.meta.url);
   const load = async path => JSON.parse(await readFile(new URL(path, root), 'utf8'));
   const npm = await load('package.json');
-  const portable = await load('plugin.json');
   const claude = await load('.claude-plugin/plugin.json');
   const codex = await load('.codex-plugin/plugin.json');
-  for (const manifest of [npm, portable, claude, codex]) assert.equal(manifest.version, VERSION);
+  for (const manifest of [npm, claude, codex]) assert.equal(manifest.version, VERSION);
   assert.equal(npm.bin['humanizer-pro'], 'skills/humanize-text/scripts/humanizer-pro.mjs');
   assert.equal(npm.private, true);
   assert.equal(npm.dependencies, undefined);
   assert.ok(!npm.files.includes('docs/'), 'Standalone package must not sweep unrelated development documents');
   assert.ok(!npm.files.some(path => /assets|plugin\.json/.test(path)), 'Standalone CLI does not need provider manifests or image assets');
   for (const hook of ['preinstall', 'install', 'postinstall', 'prepare']) assert.equal(npm.scripts?.[hook], undefined);
-  assert.equal(portable.extensions['com.openai'].interface.displayName, 'Humanizer PRO');
-  assert.ok(portable.extensions['com.openai'].interface.shortDescription.length <= 30);
-  assert.equal(portable.mcpServers, undefined);
-  assert.equal(portable.skills, undefined);
-  for (const manifest of [portable, claude, codex]) {
+  for (const manifest of [claude, codex]) {
     assert.equal(manifest.mcpServers, undefined);
     assert.equal(manifest.apps, undefined);
     assert.equal(manifest.hooks, undefined);

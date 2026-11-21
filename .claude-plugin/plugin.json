@@ -1,8 +1,6 @@
 {
-  "$schema": "https://json.schemastore.org/claude-code-plugin-manifest.json",
   "name": "humanizer-pro",
-  "displayName": "Humanizer PRO",
-  "version": "0.3.1",
+  "version": "0.3.2",
   "description": "Plan and revise supplied drafts with your Humanizer PRO account, approved local preferences, revision review, feedback, visual reports and opt-in host reminder planning.",
   "author": {
     "name": "Khadin Akbar",
@@ -17,10 +15,5 @@
     "editing",
     "humanizer",
     "cli"
-  ],
-  "icon": "./assets/icon.png",
-  "documentationUrl": "https://github.com/khadinakbarlabs/humanizer-pro-cli-plugin#readme",
-  "supportUrl": "https://texthumanizer.pro/mcp-docs#support",
-  "privacyPolicyUrl": "https://github.com/khadinakbarlabs/humanizer-pro-cli-plugin/blob/main/PRIVACY.md",
-  "termsOfServiceUrl": "https://texthumanizer.pro/terms"
+  ]
 }

@@ -8,7 +8,7 @@ import { WRITING_COMMANDS, runWriting, parseWritingArgs } from './writing.mjs';
 import { readReviewFile } from './local-input.mjs';
 
 export const ORIGIN = 'https://texthumanizer.pro';
-export const VERSION = '0.3.1';
+export const VERSION = '0.3.2';
 export const REDIRECT = 'http://127.0.0.1:6274/callback';
 const SCOPES = ['humanize', 'scan', 'balance'];
 const MODES = ['stealth', 'academic', 'seo'];
