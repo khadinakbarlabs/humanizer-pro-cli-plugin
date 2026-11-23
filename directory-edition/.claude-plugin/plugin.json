@@ -1,0 +1,26 @@
+{
+  "name": "humanizer-pro",
+  "version": "0.3.2",
+  "description": "Plan and revise supplied drafts with your Humanizer PRO account, approved local preferences, revision review, feedback, writing reports and opt-in host reminder planning. Text-only directory edition: account operations use the hosted Humanizer PRO connector.",
+  "author": {
+    "name": "Khadin Akbar",
+    "email": "hello@khadinakbar.com",
+    "url": "https://texthumanizer.pro"
+  },
+  "homepage": "https://texthumanizer.pro",
+  "repository": "https://github.com/khadinakbarlabs/humanizer-pro-cli-plugin",
+  "license": "MIT",
+  "keywords": [
+    "writing",
+    "editing",
+    "humanizer",
+    "revision"
+  ],
+  "skills": "./skills/",
+  "mcpServers": {
+    "humanizer-pro": {
+      "type": "http",
+      "url": "https://texthumanizer.pro/mcp"
+    }
+  }
+}

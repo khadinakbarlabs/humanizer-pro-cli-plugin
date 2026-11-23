@@ -2,6 +2,8 @@
 
 Humanizer PRO connects your writing assistant to your existing Humanizer PRO account. Supply a passage, choose general, academic or marketing revision, and receive the revised text with word usage and a reminder to check facts and meaning. A local CLI handles browser sign-in and service requests. Version 0.3.1 adds approved writing preferences, editing briefs, exact-detail revision checks, optional feedback records and private visual reports. Optional writing-style analysis and allowance checks run only when requested.
 
+**Two editions.** The repository root is the full edition described below, with the readable Node.js CLI and its deterministic helpers; install it from GitHub. [`directory-edition/`](directory-edition/README.md) is a text-only build for the Claude plugin directory: it contains only instructions, a manifest and an icon, uses the hosted Humanizer PRO connector (`https://texthumanizer.pro/mcp`) for account operations, and has Claude follow written procedures for local features. Its README lists what is less exact. Both use the plugin name `humanizer-pro`, so install one or the other.
+
 ## Quick start in Claude Code
 
 In Claude Code, add this repository and install the skill:
